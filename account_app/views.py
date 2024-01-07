@@ -11,15 +11,16 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
+        print(f'{username} {password}')
         if user is not None:
             login(request, user)
-            return redirect('/')
+            return redirect('home:main')
      return render(request, 'account_app/login.html', {})
 
 def user_register(request):
     context = {'errors':[]}
     if request.user.is_authenticated == True:
-        return redirect('/')
+        return redirect('home:main')
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -30,17 +31,17 @@ def user_register(request):
         if password1 != password2:
             context['errors'].append('Password does not match')
             return render(request, 'account_app/register.html', context)
+        #
+        # if User.objects.get(username=username):
+        #     context['errors'].append('this username is exists')
+        #     return render(request, 'account_app/register.html', context)
 
-        if User.objects.get(username=username):
-            context['errors'].append('this username is exists')
-            return render(request, 'account_app/register.html', context)
-
-        User.objects.create(username=username, password=password1, email=email)
-        print(username)
-        return redirect('/')
+        user = User.objects.create(username=username, password=password1, email=email)
+        login(request, user)
+        return redirect('home:main')
 
     return render(request, 'account_app/register.html', {})
 
 def user_logout(request):
     logout(request)
-    return redirect('/')
+    return redirect('home:main')

@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     # my app
     'home_app.apps.HomeAppConfig',
     'account_app.apps.AccountAppConfig',
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig',
+    
+    # library
+    'django_cleanup.apps.CleanupConfig'
 ]
 
 MIDDLEWARE = [
