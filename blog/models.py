@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.urls import reverse
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -27,10 +29,21 @@ class Article(models.Model):
     image = models.ImageField(upload_to="images/article")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    status = models.BooleanField(default=True)
+    slug = models.SlugField(blank=True, unique=True)
+    objects = ArticleManager()
     # pub_date = models.DateTimeField(default=timezone.now())
     # pub_date = models.DateTimeField(default=timezone.datetime(day=20))
-    status = models.BooleanField(default=True)
-    objects = ArticleManager()
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        self.slug = slugify(self.title)
+        super(Article, self).save()
+
+    def get_absolute_url(self):
+        # return reverse('blog:article_detail', args=[self.id])
+        return reverse('blog:article_detail', kwargs={'slug': self.slug})
 
     def __str__(self):
         return f'{self.title} - {self.body[:30]}'
+
+
