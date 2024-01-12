@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     
     # library
     'django_cleanup.apps.CleanupConfig',
+    'django_render_partial',
 
 ]
 
@@ -71,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'context_processors.context_processor.recent_articles',
             ],
         },
     },

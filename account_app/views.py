@@ -36,7 +36,8 @@ def user_register(request):
         #     context['errors'].append('this username is exists')
         #     return render(request, 'account_app/register.html', context)
 
-        user = User.objects.create(username=username, password=password1, email=email)
+        user = User.objects.create_user(username=username, password=password1, email=email)
+        print(user)
         login(request, user)
         return redirect('home:main')
 
