@@ -35,6 +35,7 @@ class Article(models.Model):
     # pub_date = models.DateTimeField(default=timezone.now())
     # pub_date = models.DateTimeField(default=timezone.datetime(day=20))
 
+
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.slug = slugify(self.title)
         super(Article, self).save()
@@ -45,5 +46,8 @@ class Article(models.Model):
 
     def __str__(self):
         return f'{self.title} - {self.body[:30]}'
+
+    class Meta:
+        ordering = ("-created",)
 
 

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-seqrm!8c&2z_a83hj_@q^ewm58^5je!v27l=xyb+-bl_)a$jfm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # library
     'django_cleanup.apps.CleanupConfig',
     'django_render_partial',
+    'django_social_share',
 
 ]
 

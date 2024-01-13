@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from blog.models import Article
+from django.core.paginator import Paginator
 
 
 def home(request):
