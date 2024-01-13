@@ -123,17 +123,17 @@
                                 {% if articles.has_other_pages %}
                                     <ul class="page-numbers">
                                     {% if articles.has_previous %}
-                                        <li><a href="?page={{ articles.previous_page_number }}"><i class="fa fa-angle-double-left"></i></a></li>
+                                        <li><a href="?page={{ articles.previous_page_number }}{% if request.Get.q %}&q={{ request.Get.q }}{% endif %}"><i class="fa fa-angle-double-left"></i></a></li>
                                     {% endif %}
                                         {% for number_page in articles.paginator.page_range %}
                                             {% if articles.number == number_page %}
-                                            <li class="active"><a href="?page={{ number_page }}">{{ number_page }}</a></li>
+                                            <li class="active"><a href="?page={{ number_page }}{% if request.Get.q %}&q={{ request.Get.q }}{% endif %}">{{ number_page }}</a></li>
                                             {% endif %}
                                         <li><a href="?page={{ number_page }}">{{ number_page }}</a></li>
                                         {% endfor %}
 
                                         {% if articles.has_next %}
-                                         <li><a href="?page={{ articles.next_page_number }}"><i class="fa fa-angle-double-right"></i></a></li>
+                                         <li><a href="?page={{ articles.next_page_number }}{% if request.Get.q %}&q={{ request.Get.q }}{% endif %}"><i class="fa fa-angle-double-right"></i></a></li>
                                         {% endif %}
                                     </ul>
                                 {% endif %}
