@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}contact us{% endblock %}
 {% block content %}
+
     <section class="contact-us">
         <div class="container">
             <div class="row">
@@ -15,31 +16,18 @@
                                     </div>
                                     <div class="content">
                                         <form id="contact" action="" method="post">
+                                            {% csrf_token %}
                                             <div class="row">
-                                                <div class="col-md-6 col-sm-12">
-                                                    <fieldset>
-                                                        <input name="name" type="text" id="name" placeholder="Your name"
-                                                               required="">
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-md-6 col-sm-12">
-                                                    <fieldset>
-                                                        <input name="email" type="text" id="email"
-                                                               placeholder="Your email" required="">
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-md-12 col-sm-12">
-                                                    <fieldset>
-                                                        <input name="subject" type="text" id="subject"
-                                                               placeholder="Subject">
-                                                    </fieldset>
-                                                </div>
                                                 <div class="col-lg-12">
-                                                    <fieldset>
-                                                        <textarea name="message" rows="6" id="message"
-                                                                  placeholder="Your Message" required=""></textarea>
-                                                    </fieldset>
-                                                </div>
+                                               {{ form.non_field_errors }}
+                                                   {% if form.name.errors %}
+                                                    <div class="alert alert-danger">{{ form.name.errors }}</div>
+                                                    {% endif %}
+                                                    {{ form.name }}
+                                                {% if form.text.errors %}
+                                                    <div class="alert alert-danger">{{ form.text.errors }}</div>
+                                                    {% endif %}
+                                                    {{ form.text }}
                                                 <div class="col-lg-12">
                                                     <fieldset>
                                                         <button type="submit" id="form-submit" class="main-button">Send

@@ -35,7 +35,6 @@ class Article(models.Model):
     # pub_date = models.DateTimeField(default=timezone.now())
     # pub_date = models.DateTimeField(default=timezone.datetime(day=20))
 
-
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.slug = slugify(self.title)
         super(Article, self).save()
@@ -52,7 +51,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    article = models.ForeignKey(Article,  on_delete=models.CASCADE, related_name= 'comments')
+    article = models.ForeignKey(Article,  on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
     body = models.TextField()
@@ -60,6 +59,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.body[:50]
+
+
+
 
 
 

@@ -128,8 +128,9 @@
                                         {% for number_page in articles.paginator.page_range %}
                                             {% if articles.number == number_page %}
                                             <li class="active"><a href="?page={{ number_page }}{% if request.Get.q %}&q={{ request.Get.q }}{% endif %}">{{ number_page }}</a></li>
-                                            {% endif %}
+                                            {% else %}
                                         <li><a href="?page={{ number_page }}">{{ number_page }}</a></li>
+                                            {% endif %}
                                         {% endfor %}
 
                                         {% if articles.has_next %}
