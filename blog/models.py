@@ -13,10 +13,10 @@ class Category(models.Model):
 
 
 class ArticleManager(models.Manager):
-     def counter(self):
+    def counter(self):
         return len(self.all())
 
-     def published(self):
+    def published(self):
         return self.filter(status=True)
 
 
@@ -32,6 +32,7 @@ class Article(models.Model):
     status = models.BooleanField(default=True)
     slug = models.SlugField(blank=True, unique=True)
     objects = ArticleManager()
+
     # pub_date = models.DateTimeField(default=timezone.now())
     # pub_date = models.DateTimeField(default=timezone.datetime(day=20))
 
@@ -51,7 +52,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    article = models.ForeignKey(Article,  on_delete=models.CASCADE, related_name='comments')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
     body = models.TextField()
@@ -61,7 +62,13 @@ class Comment(models.Model):
         return self.body[:50]
 
 
+class Message(models.Model):
+    title = models.CharField(max_length=100)
+    text = models.TextField()
+    email = models.EmailField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
-
+    def __str__(self):
+        return self.title
 
 
