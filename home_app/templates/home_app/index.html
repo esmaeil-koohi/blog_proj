@@ -2,6 +2,8 @@
 {% load static %}
 {% load render_partial %}
 {% load social_share %}
+{% load filters %}
+{% load my_template_tags %}
 {% block title %}
     home
 {% endblock %}
@@ -45,7 +47,7 @@
             <div class="main-content">
               <div class="row">
                 <div class="col-lg-8">
-                  <span>Stand Blog HTML5 Template</span>
+                  <span>{% current_time "%Y-%m-%d" %}</span>
                   <h4>Creative HTML Template For Bloggers!</h4>
                 </div>
                 <div class="col-lg-4">
@@ -82,7 +84,7 @@
                         <li><a href="#">{{ article.created }}</a></li>
                         <li><a href="#">12 Comments</a></li>
                       </ul>
-                      <p>{{ article.body }}</p>
+                      <p>{{ article.body|cutter:10 }}</p>
                       <div class="post-options">
                         <div class="row">
                           <div class="col-6">
