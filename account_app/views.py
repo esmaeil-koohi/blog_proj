@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-
 from account_app.forms import LoginForm, UserEditForm
+
 
 
 def user_login(request):
@@ -60,3 +60,6 @@ def user_edit(request):
 def user_logout(request):
     logout(request)
     return redirect('home:main')
+
+
+

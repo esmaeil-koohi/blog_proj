@@ -13,3 +13,5 @@ def home(request):
 def sidebar(request):
     data = {'name':'esmaeil'}
     return render(request, 'includes/sidebar.html', context=data)
+
+
