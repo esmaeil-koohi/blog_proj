@@ -3,7 +3,8 @@ from blog.models import Article, Category, Comment, Message
 from django.core.paginator import Paginator
 from .forms import ContactUsForm, MessageForms
 from django.views.generic.base import View, TemplateView
-from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView, ArchiveIndexView
+from .mixins import CustomLoginRequiredMixin
 from django.urls import reverse_lazy
 
 
@@ -62,7 +63,7 @@ class ArticleList(TemplateView):
         return context
 
 
-class ArticleListView(ListView):
+class ArticleListView(CustomLoginRequiredMixin, ListView):
     model = Article
     context_object_name = 'articles'
     paginate_by = 1
@@ -98,3 +99,26 @@ class MessageView(CreateView):
         instance.email = self.request.user.email
         instance.save()
         return super().form_valid(form)
+
+
+class MessageListView(ListView):
+    model = Message
+
+
+class MessageUpdateView(UpdateView):
+    model = Message
+    fields = ('title', 'text')
+    template_name = 'blog/message_update_form.html'
+    success_url = reverse_lazy('blog:message_list')
+
+
+class MessageDeleteView(DeleteView):
+    model = Message
+    success_url = reverse_lazy('blog:message_list')
+
+
+class ArchiveIndexArticleView(ArchiveIndexView):
+    model = Article
+    date_field = "updated"
+
+

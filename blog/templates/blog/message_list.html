@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Message List</title>
+</head>
+<body>
+{% for item in message_list %}
+    <p>{{ item.title }} - {{ item.text|truncatewords:20 }} - {{ item.email }} -<span><a href="{% url 'blog:message_edit' item.id %}" >Edit</a></span></p>
+    <hr>
+{% endfor %}
+</body>
+</html>

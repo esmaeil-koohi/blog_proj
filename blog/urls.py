@@ -10,4 +10,8 @@ urlpatterns = [
     path('search/', views.search, name='search_articles'),
     # path('contactus/', views.ContactUsView.as_view(), name='contact_us'),
     path('contactus/', views.MessageView.as_view(), name='contact_us'),
+    path('messages/', views.MessageListView.as_view(), name='message_list'),
+    path('message/edit/<int:pk>', views.MessageUpdateView.as_view(), name='message_edit'),
+    path('message/delete/<int:pk>', views.DeleteView.as_view(), name='message_delete'),
+    path('archive', views.ArchiveIndexArticleView.as_view(), name='archive'),
 ]

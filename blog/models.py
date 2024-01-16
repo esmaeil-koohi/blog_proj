@@ -30,6 +30,7 @@ class Article(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.BooleanField(default=True)
+    pub_date = models.DateTimeField(default=timezone.now())
     slug = models.SlugField(blank=True, unique=True)
     objects = ArticleManager()
 

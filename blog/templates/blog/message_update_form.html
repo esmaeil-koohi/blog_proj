@@ -15,11 +15,16 @@
                                         <h2>Send us a message</h2>
                                     </div>
                                     <div class="content">
-                                        {{ form }}
+                                        <form id="contact" action="" method="post">
+                                            {% csrf_token %}
+                                            <div class="row">
                                                 <div class="col-lg-12">
+                                                  {{ form }}
+                                                <div class="col-lg-12">
+                                                    <a href="{% url 'blog:message_delete' object.id %}" class="btn btn-danger">Delete</a>
                                                     <fieldset>
-                                                        <button type="submit" id="form-submit" class="main-button">Send
-                                                            Message
+                                                        <button type="submit" id="form-submit" class="main-button">
+                                                           Submit
                                                         </button>
                                                     </fieldset>
                                                 </div>
