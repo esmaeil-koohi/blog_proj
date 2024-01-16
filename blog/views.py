@@ -3,7 +3,7 @@ from blog.models import Article, Category, Comment, Message
 from django.core.paginator import Paginator
 from .forms import ContactUsForm, MessageForms
 from django.views.generic.base import View, TemplateView
-from django.views.generic import ListView, DetailView, FormView
+from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView
 from django.urls import reverse_lazy
 
 
@@ -47,7 +47,7 @@ def contactus(request):
             text = form.cleaned_data['text']
             email = form.cleaned_data['email']
             Message.objects.create(title=title, text=text, email=email)
-             # instance = form.save(commit=True)
+            # instance = form.save(commit=True)
     else:
         form = MessageForms()
     return render(request, "blog/contact_us.html", {'form': form})
@@ -82,3 +82,19 @@ class ContactUsView(FormView):
         Message.objects.create(**form_data)
         return super().form_valid(form)
 
+
+class MessageView(CreateView):
+    model = Message
+    fields = ('title', 'text')
+    success_url = reverse_lazy('home:main')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['my_messages'] = Message.objects.all()
+        return context
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.email = self.request.user.email
+        instance.save()
+        return super().form_valid(form)
